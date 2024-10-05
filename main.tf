@@ -12,6 +12,13 @@ resource "aws_security_group" "sg" {
     cidr_blocks = var.sg_subnet_cidr # We are allowing app subnet to this instance to access
   }
 
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "-1"
+    cidr_blocks = var.bastion_node # We wanted workstation to access this node
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
