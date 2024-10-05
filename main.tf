@@ -8,14 +8,14 @@ resource "aws_security_group" "sg" {
   ingress {
     from_port   = 5672  # Rabbitmq port
     to_port     = 5672
-    protocol    = "-1"
+    protocol    = "tcp"
     cidr_blocks = var.sg_subnet_cidr # We are allowing app subnet to this instance to access
   }
 
   ingress {
     from_port   = 22
     to_port     = 22
-    protocol    = "-1"
+    protocol    = "tcp"
     cidr_blocks = var.allow_ssh_cidr # We wanted workstation to access this node
   }
 
