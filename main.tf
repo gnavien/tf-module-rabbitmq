@@ -16,7 +16,7 @@ resource "aws_security_group" "sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "-1"
-    cidr_blocks = var.bastion_node # We wanted workstation to access this node
+    cidr_blocks = var.allow_ssh_cidr # We wanted workstation to access this node
   }
 
   egress {
