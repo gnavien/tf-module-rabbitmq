@@ -31,41 +31,6 @@ resource "aws_security_group" "sg" {
 }
 
 
-#
-### DNS records (route 53)
-#
-#resource "aws_route53_record" "dns" {
-#  zone_id = "Z00238782DN7KNOSJPFLV"
-#  name    = "${var.component}-dev"
-#  type    = "A"
-#  ttl     = 30
-#  records = [aws_instance.instance.private_ip]# We are accessing all the ec2 instances using the private IP address
-#}
-### Null Resource - Ansible
-#
-#resource "null_resource" "ansible" {
-#  depends_on = [aws_instance.instance, aws_route53_record.dns] # We have written this once ec2 instances and route 53 records have been created we need to start the remote execution.
-#  provisioner "remote-exec" {
-#
-#    connection {
-#      type     = "ssh"
-#      user     = "centos"
-#      password = "DevOps321"
-#      host     = aws_instance.instance.public_ip
-#    }
-#
-#
-#    inline = [
-#      "sudo set-hostname -skip-apply ${var.component}",
-#      "sudo labauto ansible",
-#      "ansible-pull -i localhost, -U https://github.com/gnavien/roboshop-ansible.git main.yml -e env=${var.env} -e role_name=${var.component}"
-#    ]
-#  }
-#}
-#
-
-
-
 ## EC2
 ## For EC2 we would require data for aws ami which is stored in data.tf file
 
