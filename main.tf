@@ -35,14 +35,17 @@ resource "aws_security_group" "sg" {
 ## For EC2 we would require data for aws ami which is stored in data.tf file
 
 resource "aws_instance" "rabbitmq_instance" {
-  ami           = data.aws_ami.ami.id
-  instance_type = var.instance_type
+  ami                    = data.aws_ami.ami.id
+  instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.sg.id]
-  iam_instance_profile = aws_iam_instance_profile.instance_profile.name
-  tags = merge({    Name = "${var.component}-${var.env}"  },    var.tags)
-  subnet_id = var.subnet_id
+  iam_instance_profile   = aws_iam_instance_profile.instance_profile.name
+  tags                   = merge({ Name = "${var.component}-${var.env}" }, var.tags)
+  subnet_id              = var.subnet_id
 
   # We are giving a template file for user data path . module then the file is in the module, if it is path . root it is in root module
-  user_data = templatefile("${path.module}/userdata.sh", {env = var.env})
+  user_data = templatefile("${path.module}/userdata.sh", {
+    env       = var.env
+    component = var.component
+  })
 }
 
