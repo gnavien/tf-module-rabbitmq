@@ -47,9 +47,11 @@ resource "aws_instance" "rabbitmq_instance" {
     env       = var.env
     component = var.component
   })
+
+  # We have to create a root block device specific to encryption
   root_block_device {
     encrypted = true
-    kms_key_id = var.kms_key_id
+    kms_key_arn = var.kms_key_arn
   }
 }
 
