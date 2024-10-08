@@ -52,6 +52,7 @@ resource "aws_instance" "rabbitmq_instance" {
   root_block_device {
     encrypted = true
     kms_key_id = var.kms_key_arn
+
   }
 }
 
